@@ -3,7 +3,7 @@ const desktopMenu = document.querySelector(".desktop-menu");
 const mobileMenu = document.querySelector(".mobile-menu");
 const burgerMenu = document.querySelector('.burger-menu');
 const shoppingCart = document.querySelector('.navbar-shopping-cart');
-const orders = document.querySelector('.product-detail');
+const orders = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
 
 const isAsideClosed = orders.classList.toggle('inactive');
@@ -68,22 +68,6 @@ productList.push({
     image: "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 })
 
-
-/*<div class="product-card">
-                <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="" class="product-img">
-                <div class="product-info">
-                    <div>
-                        <p>$120,00</p>
-                        <p>Bike</p>
-                    </div>
-                    <figure>
-                        <img src="./icons/bt_add_to_cart.svg" alt="">
-                    </figure>
-                </div>
-            </div> */
-
-
 function renderProducts(arr){
     for(product of arr){
         const productCard = document.createElement('div');
@@ -125,3 +109,4 @@ function renderProducts(arr){
 }
 
 renderProducts(productList);
+
