@@ -394,7 +394,11 @@ font-weight:bold;
         display:none;
     }
 
-    .product-detail{
+    #shoppingCartContainer{
+        width:100%;
+    }
+
+    #productDetail{
         width:100%;
     }
 
