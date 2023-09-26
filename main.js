@@ -222,11 +222,17 @@ function addToCart(product) {
     const productPriceOrders = document.createElement('p');
     productPriceOrders.innerText = '$' + product.price;
 
+    totalAmount += product.price;
+
     const imgDeleteProduct = document.createElement('img');
+    imgDeleteProduct.classList.add("imgDeleteProduct");
     imgDeleteProduct.setAttribute('src', './icons/icon_close.png');
     imgDeleteProduct.addEventListener('click', () => {
-        // Aquí puedes agregar la lógica para eliminar el producto del carrito si es necesario
+        count-=1;
+        nProducts.innerText=count;
+        totalAmount -= product.price;
         shoppingCartOrder.remove();
+        totalAmountOrder.innerText='$'+totalAmount;
     });
 
     shoppingCartOrder.appendChild(figureShoppingCart);
@@ -238,44 +244,10 @@ function addToCart(product) {
 
     divInferiorOrders.parentNode.insertBefore(shoppingCartOrder,divInferiorOrders);
 
-    totalAmount += product.price;
+    
 
     totalAmountOrder.innerText='$'+totalAmount;
 }
-
-
-/*function addInferiorDivOrders(){
-    const divInferiorOrder = document.createElement('div');
-    divInferiorOrder.classList.add('order');
-
-   
-
-    const pTotal = document.createElement('p');
-    const spanTotal = document.createElement('span');
-    spanTotal.innerText="Total";
-
-    pTotal.appendChild(spanTotal);
-
-    divInferiorOrder.appendChild(pTotal);
-
-    const pTotalAmount = document.createElement('p');
-    pTotalAmount.innerText="$0.00";
-
-    divInferiorOrder.appendChild(pTotalAmount);
-
-    const btnCheckout = document.createElement('button');
-    btnCheckout.classList.add('primary-button');
-    btnCheckout.innerText = "Checkout";
-
-    orders.append(btnCheckout);
-
-    return addInferiorDivOrders;
-    
-}*/
-
-
-
-
 
 /*            <div class="shopping-cart">
                 <figure>
