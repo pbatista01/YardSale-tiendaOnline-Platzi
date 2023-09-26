@@ -165,7 +165,6 @@ renderProducts(productList);
 // Function to open the product detail
 function openProductDetailAside(product) {
 
-    mobileMenu.classList.toggle('inactive');
     while (productDetailContainer.firstChild) {
         productDetailContainer.removeChild(productDetailContainer.firstChild);
     }
@@ -233,6 +232,8 @@ function openProductDetailAside(product) {
     productDetailContainer.classList.remove('inactive');
     orders.classList.add('inactive');
     desktopMenu.classList.add('inactive');
+    mobileMenu.classList.add('inactive');
+
 }
 
 // Function to add a product to the shopping cart
