@@ -306,6 +306,7 @@ font-weight:bold;
 }
 #productDetail .product-info{
     margin:24px 14px 0 24px;
+    padding-bottom:15px;
 }
 #productDetail .product-info p:nth-child(1){
     font-weight:bold;
