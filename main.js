@@ -1,85 +1,66 @@
+// Selecting DOM elements
 const emailMenu = document.querySelector(".navbar-email");
 const desktopMenu = document.querySelector(".desktop-menu");
 const mobileMenu = document.querySelector(".mobile-menu");
 const burgerMenu = document.querySelector('.burger-menu');
 const shoppingCart = document.querySelector('.navbar-shopping-cart');
-const productDetailCloseIcon = document.querySelector('.product-detail-close');
+const productDetailContainer = document.querySelector('#productDetail');
 const orders = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
-const productDetailContainer = document.querySelector('#productDetail');
-const arrowOrders = document.querySelector("#arrowOrders");
-
-
-const isAsideClosed = orders.classList.toggle('inactive');
-const isMobileMenuClosed = mobileMenu.classList.toggle('inactive');
-const isEmailMenuClosed = desktopMenu.classList.toggle('inactive');
-const isProductDetailContainerClosed = desktopMenu.classList.toggle('inactive');
-
 const divInferiorOrders = document.querySelector('.order');
 const nProducts = document.querySelector('.nProducts');
 const totalAmountOrder = document.querySelector('.total-amount');
+const arrowOrders = document.querySelector("#arrowOrders");
 
-let count=0; 
-let totalAmount = 0;
+let count = 0; // Counter for products in the cart
+let totalAmount = 0; // Total amount of products in the cart
+
+// Function to initialize the page once it's loaded
+function initializePage() {
+    // Hide elements when the page loads
+    mobileMenu.classList.add('inactive');
+    orders.classList.add('inactive');
+    productDetailContainer.classList.add('inactive');
+}
+window.addEventListener('load', initializePage);
+
+// Event Listeners for interface elements
 emailMenu.addEventListener('click', toggleMenuOrders);
 burgerMenu.addEventListener('click', toggleMobileMenu);
 shoppingCart.addEventListener('click', toggleOrders);
-arrowOrders.addEventListener('click',toggleOrders);
+arrowOrders.addEventListener('click', toggleOrders);
 
+// Function to toggle the visibility of the desktop menu
 function toggleMenuOrders() {
 
     desktopMenu.classList.toggle("inactive");
-    orders.classList.add('inactive');
-    productDetailContainer.classList.add('inactive');
-    /*if(!isAsideClosed){
-        orders.classList.add('inactive');
-    }
-    if(isProductDetailContainerClosed){
-        productDetailContainer.classList.add('inactive');
-    }
+    orders.classList.add('inactive'); // Hide the shopping cart
+    productDetailContainer.classList.add('inactive');  // Hide the product detail
 
-    desktopMenu.classList.toggle("inactive");*/
 }
 
+// Function to toggle the visibility of the mobile menu
 function toggleMobileMenu() {
-
-    /*if(!isAsideClosed){
-        orders.classList.add('inactive');
-    }*/
     mobileMenu.classList.toggle("inactive");
-    closeProductDetailAside();
-    orders.classList.add('inactive');
-
+    closeProductDetailAside(); // Close the product detail if it's open
+    orders.classList.add('inactive'); // Hide the shopping cart
 }
 
+
+// Function to toggle the visibility of the shopping cart and other elements
 function toggleOrders() {
-
-    /*if(!isMobileMenuClosed){
-        mobileMenu.classList.add('inactive');
-    }
-
-    if(!isEmailMenuClosed){
-        desktopMenu.classList.add('inactive');
-    }
-    if(isProductDetailContainerClosed){
-        productDetailContainer.classList.add('inactive');
-    }*/
-
     orders.classList.toggle('inactive');
-    mobileMenu.classList.add('inactive');
-    desktopMenu.classList.add('inactive');
-    productDetailContainer.classList.add('inactive');
-
+    mobileMenu.classList.add('inactive'); // Hide the mobile menu
+    desktopMenu.classList.add('inactive'); // Hide the desktop menu
+    productDetailContainer.classList.add('inactive'); // Hide the product detail
 }
 
-
-
-
+// Function to close the product detail
 function closeProductDetailAside() {
     productDetailContainer.classList.add('inactive');
 }
 
-
+// List of products
 const productList = [];
 
 productList.push({
@@ -130,24 +111,7 @@ productList.push({
     image: "https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 })
 
-
-
-
-/*<div class="product-card">
-                <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="" class="product-img">
-                <div class="product-info">
-                    <div>
-                        <p>$120,00</p>
-                        <p>Bike</p>
-                    </div>
-                    <figure>
-                        <img src="./icons/bt_add_to_cart.svg" alt="">
-                    </figure>
-                </div>
-            </div> -->
-*/
-
+// Function to render the list of products on the page
 function renderProducts(arr) {
     for (let i = 0; i < arr.length; i++) {
         const product = arr[i];
@@ -194,106 +158,88 @@ function renderProducts(arr) {
 
 }
 
+
+// Render the list of products when the page loads
 renderProducts(productList);
 
-    function openProductDetailAside(product) {
+// Function to open the product detail
+function openProductDetailAside(product) {
 
-        while (productDetailContainer.firstChild) {
-            productDetailContainer.removeChild(productDetailContainer.firstChild);
-        }
-    
-        const productDetailClose = document.createElement('div');
-        productDetailClose.classList.add("product-detail-close");
+    mobileMenu.classList.toggle('inactive');
+    while (productDetailContainer.firstChild) {
+        productDetailContainer.removeChild(productDetailContainer.firstChild);
+    }
 
-        productDetailContainer.appendChild(productDetailClose);
-        
-        const productDetailXicon = document.createElement('img');
-        productDetailXicon.classList.add("product-detail-close-x");
-        productDetailXicon.setAttribute("src","./icons/icon_close.png"); 
+    const productDetailClose = document.createElement('div');
+    productDetailClose.classList.add("product-detail-close");
 
+    productDetailContainer.appendChild(productDetailClose);
 
-        productDetailClose.appendChild(productDetailXicon);
-
-        productDetailXicon.addEventListener('click', closeProductDetailAside);
+    const productDetailXicon = document.createElement('img');
+    productDetailXicon.classList.add("product-detail-close-x");
+    productDetailXicon.setAttribute("src", "./icons/icon_close.png");
 
 
-        productDetailImgProduct = document.createElement("img");
-        productDetailImgProduct.setAttribute("src",product.image);
+    productDetailClose.appendChild(productDetailXicon);
 
-        productDetailContainer.appendChild(productDetailImgProduct);
+    productDetailXicon.addEventListener('click', closeProductDetailAside);
 
-        const productInfoAside = document.createElement('div');
-        productInfoAside.classList.add('product-info');
 
-        productDetailContainer.appendChild(productInfoAside);
+    productDetailImgProduct = document.createElement("img");
+    productDetailImgProduct.setAttribute("src", product.image);
 
-        const productPriceAside = document.createElement('p');
-        productPriceAside.innerText = "$"+product.price;
+    productDetailContainer.appendChild(productDetailImgProduct);
 
-        productInfoAside.appendChild(productPriceAside);
+    const productInfoAside = document.createElement('div');
+    productInfoAside.classList.add('product-info');
 
-        const productNameAside = document.createElement('p');
-        productNameAside.innerText = product.name;
+    productDetailContainer.appendChild(productInfoAside);
 
-        productInfoAside.appendChild(productNameAside);
+    const productPriceAside = document.createElement('p');
+    productPriceAside.innerText = "$" + product.price;
 
-        const productDescAside = document.createElement('p');
-        productDescAside.innerText ="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellendus odit nulla consectetur natus animi blanditiis temporibus deserunt ipsa libero at ratione culpa quidem nostrum, architecto non perspiciatis, soluta dolorem.";
+    productInfoAside.appendChild(productPriceAside);
 
-        productInfoAside.appendChild(productDescAside);
+    const productNameAside = document.createElement('p');
+    productNameAside.innerText = product.name;
 
-        const btnAddAside = document.createElement('button');
-        btnAddAside.classList.add('primary-button');
-        btnAddAside.classList.add('add-to-cart-button');
-        
+    productInfoAside.appendChild(productNameAside);
 
-        productInfoAside.appendChild(btnAddAside);
-        btnAddAside.innerText ='Add to cart ';
+    const productDescAside = document.createElement('p');
+    productDescAside.innerText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellendus odit nulla consectetur natus animi blanditiis temporibus deserunt ipsa libero at ratione culpa quidem nostrum, architecto non perspiciatis, soluta dolorem.";
 
-        const imgCart = document.createElement('img');
-        imgCart.setAttribute('src','./icons/bt_add_to_cart.svg');
+    productInfoAside.appendChild(productDescAside);
 
-        btnAddAside.appendChild(imgCart);
+    const btnAddAside = document.createElement('button');
+    btnAddAside.classList.add('primary-button');
+    btnAddAside.classList.add('add-to-cart-button');
 
-        btnAddAside.addEventListener('click',() => {
-            addToCart(product);
-        });
 
-        const btnTextAside = document.createElement('p');
-        btnTextAside.innerText = "Add to cart";
+    productInfoAside.appendChild(btnAddAside);
+    btnAddAside.innerText = 'Add to cart ';
 
-/*if(!isAsideClosed){
+    const imgCart = document.createElement('img');
+    imgCart.setAttribute('src', './icons/bt_add_to_cart.svg');
+
+    btnAddAside.appendChild(imgCart);
+
+    btnAddAside.addEventListener('click', () => {
+        addToCart(product);
+    });
+
+    const btnTextAside = document.createElement('p');
+    btnTextAside.innerText = "Add to cart";
+
+    productDetailContainer.classList.remove('inactive');
     orders.classList.add('inactive');
-}
-if(!isEmailMenuClosed){
     desktopMenu.classList.add('inactive');
-}*/
-
-productDetailContainer.classList.remove('inactive');
-orders.classList.add('inactive');
-desktopMenu.classList.add('inactive');
 }
 
-/*<div class="product-detail-close">
-            <img class="product-detail-close-x" src="./icons/icon_close.png" alt="close">
-        </div>
-        <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="bike">
-        <div class="product-info">
-            <p>$35,00</p>   
-            <p>Bike</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellendus odit nulla consectetur natus animi blanditiis temporibus deserunt ipsa libero at ratione culpa quidem nostrum, architecto non perspiciatis, soluta dolorem.</p>
-            <button class="primary-button add-to-cart-button">
-                <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
-                Add to cart
-            </button>
-        </div>*/
-
-
-
+// Function to add a product to the shopping cart
 function addToCart(product) {
-    
-    count+=1;
-    nProducts.innerText=count;
+
+    count += 1;
+    nProducts.innerText = count;
     const shoppingCartOrder = document.createElement('div');
     shoppingCartOrder.classList.add('shopping-cart');
 
@@ -313,11 +259,11 @@ function addToCart(product) {
     imgDeleteProduct.classList.add("imgDeleteProduct");
     imgDeleteProduct.setAttribute('src', './icons/icon_close.png');
     imgDeleteProduct.addEventListener('click', () => {
-        count-=1;
-        nProducts.innerText=count;
+        count -= 1;
+        nProducts.innerText = count;
         totalAmount -= product.price;
         shoppingCartOrder.remove();
-        totalAmountOrder.innerText='$'+totalAmount;
+        totalAmountOrder.innerText = '$' + totalAmount;
     });
 
     shoppingCartOrder.appendChild(figureShoppingCart);
@@ -326,33 +272,11 @@ function addToCart(product) {
     shoppingCartOrder.appendChild(productPriceOrders);
     shoppingCartOrder.appendChild(imgDeleteProduct);
 
+    divInferiorOrders.parentNode.insertBefore(shoppingCartOrder, divInferiorOrders);
 
-    divInferiorOrders.parentNode.insertBefore(shoppingCartOrder,divInferiorOrders);
-
-    
-
-    totalAmountOrder.innerText='$'+totalAmount;
+    totalAmountOrder.innerText = '$' + totalAmount;
 }
 
-/*            <div class="shopping-cart">
-                <figure>
-                    <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="bike">
-                </figure>
-                <p>Bike</p>
-                <p>$30,00</p>
-                <img src="./icons/icon_close.png" alt="close">
-            </div>
-
-            <div class="order">
-                <p>
-                    <span>Total</span>
-                </p>
-                <p>$560,00</p>
-            </div>
-            <button class="primary-button">
-                Checkout
-            </button>*/
 
 
 
