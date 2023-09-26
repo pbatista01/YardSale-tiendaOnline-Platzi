@@ -7,6 +7,7 @@ const productDetailCloseIcon = document.querySelector('.product-detail-close');
 const orders = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
 const productDetailContainer = document.querySelector('#productDetail');
+const arrowOrders = document.querySelector("#arrowOrders");
 
 
 const isAsideClosed = orders.classList.toggle('inactive');
@@ -24,6 +25,7 @@ emailMenu.addEventListener('click', toggleMenuOrders);
 burgerMenu.addEventListener('click', toggleMobileMenu);
 shoppingCart.addEventListener('click', toggleOrders);
 productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
+arrowOrders.addEventListener('click',toggleOrders);
 
 function toggleMenuOrders() {
 
