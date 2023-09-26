@@ -24,7 +24,6 @@ let totalAmount = 0;
 emailMenu.addEventListener('click', toggleMenuOrders);
 burgerMenu.addEventListener('click', toggleMobileMenu);
 shoppingCart.addEventListener('click', toggleOrders);
-productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 arrowOrders.addEventListener('click',toggleOrders);
 
 function toggleMenuOrders() {
@@ -73,18 +72,8 @@ function toggleOrders() {
 
 }
 
-function openProductDetailAside() {
 
-    /*if(!isAsideClosed){
-        orders.classList.add('inactive');
-    }
-    if(!isEmailMenuClosed){
-        desktopMenu.classList.add('inactive');
-    }*/
-    productDetailContainer.classList.remove('inactive');
-    orders.classList.add('inactive');
-    desktopMenu.classList.add('inactive');
-}
+
 
 function closeProductDetailAside() {
     productDetailContainer.classList.add('inactive');
@@ -167,7 +156,7 @@ function renderProducts(arr) {
 
         const productImg = document.createElement('img');
         productImg.setAttribute('src', product.image);
-        productImg.addEventListener('click', openProductDetailAside);
+        productImg.addEventListener('click', () => openProductDetailAside(product));
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -206,6 +195,100 @@ function renderProducts(arr) {
 }
 
 renderProducts(productList);
+
+    function openProductDetailAside(product) {
+
+        while (productDetailContainer.firstChild) {
+            productDetailContainer.removeChild(productDetailContainer.firstChild);
+        }
+    
+        const productDetailClose = document.createElement('div');
+        productDetailClose.classList.add("product-detail-close");
+
+        productDetailContainer.appendChild(productDetailClose);
+        
+        const productDetailXicon = document.createElement('img');
+        productDetailXicon.classList.add("product-detail-close-x");
+        productDetailXicon.setAttribute("src","./icons/icon_close.png"); 
+
+
+        productDetailClose.appendChild(productDetailXicon);
+
+        productDetailXicon.addEventListener('click', closeProductDetailAside);
+
+
+        productDetailImgProduct = document.createElement("img");
+        productDetailImgProduct.setAttribute("src",product.image);
+
+        productDetailContainer.appendChild(productDetailImgProduct);
+
+        const productInfoAside = document.createElement('div');
+        productInfoAside.classList.add('product-info');
+
+        productDetailContainer.appendChild(productInfoAside);
+
+        const productPriceAside = document.createElement('p');
+        productPriceAside.innerText = "$"+product.price;
+
+        productInfoAside.appendChild(productPriceAside);
+
+        const productNameAside = document.createElement('p');
+        productNameAside.innerText = product.name;
+
+        productInfoAside.appendChild(productNameAside);
+
+        const productDescAside = document.createElement('p');
+        productDescAside.innerText ="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellendus odit nulla consectetur natus animi blanditiis temporibus deserunt ipsa libero at ratione culpa quidem nostrum, architecto non perspiciatis, soluta dolorem.";
+
+        productInfoAside.appendChild(productDescAside);
+
+        const btnAddAside = document.createElement('button');
+        btnAddAside.classList.add('primary-button');
+        btnAddAside.classList.add('add-to-cart-button');
+        
+
+        productInfoAside.appendChild(btnAddAside);
+        btnAddAside.innerText ='Add to cart ';
+
+        const imgCart = document.createElement('img');
+        imgCart.setAttribute('src','./icons/bt_add_to_cart.svg');
+
+        btnAddAside.appendChild(imgCart);
+
+        btnAddAside.addEventListener('click',() => {
+            addToCart(product);
+        });
+
+        const btnTextAside = document.createElement('p');
+        btnTextAside.innerText = "Add to cart";
+
+/*if(!isAsideClosed){
+    orders.classList.add('inactive');
+}
+if(!isEmailMenuClosed){
+    desktopMenu.classList.add('inactive');
+}*/
+
+productDetailContainer.classList.remove('inactive');
+orders.classList.add('inactive');
+desktopMenu.classList.add('inactive');
+}
+
+/*<div class="product-detail-close">
+            <img class="product-detail-close-x" src="./icons/icon_close.png" alt="close">
+        </div>
+        <img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="bike">
+        <div class="product-info">
+            <p>$35,00</p>   
+            <p>Bike</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellendus odit nulla consectetur natus animi blanditiis temporibus deserunt ipsa libero at ratione culpa quidem nostrum, architecto non perspiciatis, soluta dolorem.</p>
+            <button class="primary-button add-to-cart-button">
+                <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
+                Add to cart
+            </button>
+        </div>*/
+
+
 
 function addToCart(product) {
     

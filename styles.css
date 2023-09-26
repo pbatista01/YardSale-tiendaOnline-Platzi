@@ -273,7 +273,7 @@ font-weight:bold;
 }
 
 .primary-button:hover{
-    background-color:#3b7026;
+    background-color:#3b7026a0;
 }
 
 /* Product Detail */
@@ -340,6 +340,10 @@ font-weight:bold;
     display:flex;
     align-items: center;
     justify-content: center;
+}
+
+.add-to-cart-button:hover{
+    background-color: var(--hospital-green);
 }
 
 
